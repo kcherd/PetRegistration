@@ -36,6 +36,17 @@ public class StartFragment extends Fragment {
             }
         });
 
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, new InfoFragment())
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
         return v;
     }
 }

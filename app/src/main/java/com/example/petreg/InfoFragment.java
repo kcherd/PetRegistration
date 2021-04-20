@@ -10,21 +10,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-
-public class RegisterFragment extends Fragment {
-
-    private TextView id;
+public class InfoFragment extends Fragment {
+    private TextView idTV;
+    private TextView nameTV;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.register_fragment, container, false);
-        id = v.findViewById(R.id.helloTV);
+        View v = inflater.inflate(R.layout.info_fragment, container, false);
+        idTV = v.findViewById(R.id.id_info_tv);
         if(getArguments() != null) {
-            id.setText(getArguments().getString("id"));
+            idTV.setText(getArguments().getString("id"));
         }
 
         return v;
     }
-
 }

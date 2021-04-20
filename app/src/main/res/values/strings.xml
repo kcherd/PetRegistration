@@ -3,4 +3,6 @@
     <string name="register">Зарегистрировать</string>
     <string name="info">Информация</string>
     <string name="map">Карта</string>
+    <string name="id">идентификатор</string>
+    <string name="name">Имя</string>
 </resources>

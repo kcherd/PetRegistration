@@ -10,12 +10,6 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
-
-        <TextView
-            android:id="@+id/TVinMain"
-            android:text="Hello"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
     </FrameLayout>
 
 </LinearLayout>
