@@ -26,21 +26,35 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RegisterFragment.RegisterEventListener {
 
     private static final String TAG_MAIN = "mainTag";
+    private FragmentManager fragmentManager;
+    private NfcAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, new StartFragment())
                 .addToBackStack(null)
                 .commit();
 
         Intent intent = getIntent();
+        mAdapter = NfcAdapter.getDefaultAdapter(this);
+        openInfoFragment(intent);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+    }
+
+    public void openInfoFragment(Intent intent){
+
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
             Log.d(TAG_MAIN, "read nfc");
 
@@ -78,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 int languageCodeLength = payload[0] & 0077;
                 String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
                 String text = new String(payload, languageCodeLength + 1,
-                                payload.length - languageCodeLength - 1, textEncoding);
+                        payload.length - languageCodeLength - 1, textEncoding);
 
                 Log.d(TAG_MAIN, "languageCode = " + languageCode + " text:" + text);
 
@@ -98,24 +112,30 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-//        setIntent(intent);
-//        String action = intent.getAction();
-//        Log.d(TAG_MAIN, "onNewIntent: ");
-//        tv.setText("HI");
-//
-//        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
-//            Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-//            NdefMessage[] msgs;
-//            if (rawMsgs != null) {
-//                msgs = new NdefMessage[rawMsgs.length];
-//                for (int i = 0; i < rawMsgs.length; i++) {
-//                    msgs[i] = (NdefMessage) rawMsgs[i];
-//                }
-//            }
-//        }
+    public NdefRecord createTextRecord(String payload, Locale locale, boolean encodeInUtf8){
+        byte[] langBytes = locale.getLanguage().getBytes(Charset.forName("US-ASCII"));
+
+        Charset utfEncoding = encodeInUtf8 ? Charset.forName("UTF-8") : Charset.forName("UTF-16");
+        byte[] textBytes = payload.getBytes(utfEncoding);
+
+        int utfBit = encodeInUtf8 ? 0 : (1 << 7);
+        char status = (char) (utfBit + langBytes.length);
+
+        byte[] data = new byte[1 + langBytes.length + textBytes.length];
+        data[0] = (byte) status;
+        System.arraycopy(langBytes, 0, data, 1, langBytes.length);
+        System.arraycopy(textBytes, 0, data, 1 + langBytes.length, textBytes.length);
+        NdefRecord record = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,
+                NdefRecord.RTD_TEXT, new byte[0], data);
+        return record;
     }
 
+    @Override
+    public void registerEvent(String id) {
+        Log.d(TAG_MAIN, "registerEvent: " + id);
+        RecordDialogFragment dialogFragment = new RecordDialogFragment();
+        NdefMessage mNdefPushMessage = new NdefMessage(new NdefRecord[]  {createTextRecord(id, Locale.ENGLISH, true)});
+        mAdapter.setNdefPushMessage(mNdefPushMessage, this);
+        dialogFragment.show(getSupportFragmentManager(), "Record");
+    }
 }

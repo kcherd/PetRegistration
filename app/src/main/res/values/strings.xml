@@ -5,4 +5,7 @@
     <string name="map">Карта</string>
     <string name="id">идентификатор</string>
     <string name="name">Имя</string>
+    <string name="Record">Записать</string>
+    <string name="record_message">Приложите NFC метку к устройству</string>
+    <string name="cancel">Отмена</string>
 </resources>
