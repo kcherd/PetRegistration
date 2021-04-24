@@ -8,4 +8,11 @@
     <string name="Record">Записать</string>
     <string name="record_message">Приложите NFC метку к устройству</string>
     <string name="cancel">Отмена</string>
+    <string name="message_write_error">Ошибка при записи тега</string>
+    <string name="message_write_success">Тег успешно записан</string>
+    <string name="message_write_progress">Записываем тег</string>
+    <string name="message_tag_detected">NFC метка обнаружена</string>
+    <string name="message_read_tag">Чтение метки</string>
+    <string name="message_write_tag">Запись на мекту</string>
+    <string name="message_tap_tag">Приложите метку к телефону</string>
 </resources>
