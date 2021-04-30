@@ -3,6 +3,7 @@
     package="com.example.petreg">
 
     <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-sdk android:minSdkVersion="10"/>
 
     <application
