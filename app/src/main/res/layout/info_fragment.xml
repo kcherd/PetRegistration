@@ -22,10 +22,28 @@
         android:layout_height="wrap_content"
         android:hint="@string/name"/>
 
-    <Button
-        android:id="@+id/infoButton"
-        android:text="@string/info"
+    <TextView
+        android:id="@+id/age_info_tv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:hint="@string/age"/>
+
+    <TextView
+        android:id="@+id/fio_info_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/fio"/>
+
+    <TextView
+        android:id="@+id/address_info_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/address"/>
+
+    <TextView
+        android:id="@+id/tel_info_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/tel"/>
 
 </LinearLayout>

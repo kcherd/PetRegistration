@@ -13,22 +13,45 @@
         android:layout_height="wrap_content"/>
 
     <EditText
-        android:id="@+id/id_reg_tv"
+        android:id="@+id/id_reg_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/id" />
 
     <EditText
-        android:id="@+id/name_reg_tv"
+        android:id="@+id/name_reg_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/name"/>
+
+    <EditText
+        android:id="@+id/age_reg_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/age"/>
+
+    <EditText
+        android:id="@+id/fio_reg_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/fio"/>
+
+    <EditText
+        android:id="@+id/address_reg_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/address"/>
+
+    <EditText
+        android:id="@+id/tel_reg_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/tel"/>
 
     <Button
         android:id="@+id/record_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Record"/>
-
 
 </LinearLayout>

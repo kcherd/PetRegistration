@@ -1,5 +1,6 @@
 package com.example.petreg;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.nfc.FormatException;
 import android.nfc.NdefMessage;
@@ -18,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
@@ -29,8 +31,14 @@ import retrofit2.Response;
 public class InfoFragment extends Fragment {
     private TextView idTV;
     private TextView nameTV;
+    private TextView ageTV;
+    private TextView fioTV;
+    private TextView addressTV;
+    private TextView telTV;
+
     private Listener listener;
-    private Button infoButton;
+    private Gson gson = new Gson();
+    private Pet pet;
     public static final String TAG = InfoFragment.class.getSimpleName();
 
     public static InfoFragment newInstance(){
@@ -43,18 +51,10 @@ public class InfoFragment extends Fragment {
         View v = inflater.inflate(R.layout.info_fragment, container, false);
         idTV = v.findViewById(R.id.id_info_tv);
         nameTV = v.findViewById(R.id.name_info_tv);
-        nameTV.setText(TAG);
-        infoButton = v.findViewById(R.id.infoButton);
-        infoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: ");
-                getDataFromDB();
-            }
-        });
-//        if(getArguments() != null) {
-//            idTV.setText(getArguments().getString("id"));
-//        }
+        ageTV = v.findViewById(R.id.age_info_tv);
+        fioTV = v.findViewById(R.id.fio_info_tv);
+        addressTV = v.findViewById(R.id.address_info_tv);
+        telTV = v.findViewById(R.id.tel_info_tv);
 
         return v;
     }
@@ -88,6 +88,8 @@ public class InfoFragment extends Fragment {
                 Log.d(TAG, "readFromNFC: " + message);
                 idTV.setText(message);
                 ndef.close();
+
+                getDataFromDB();
             }
 
         } catch (IOException | FormatException e) {
@@ -106,9 +108,12 @@ public class InfoFragment extends Fragment {
                         mainHandler.post(new Runnable() {
                             @Override
                             public void run() {
-                                //Log.d(TAG, "run: " + response);
                                 JsonObject jsonAns = response.body();
                                 Log.d(TAG, "run: " + jsonAns);
+
+                                pet = new Pet();
+                                pet = gson.fromJson(jsonAns.getAsJsonObject(), Pet.class);
+                                setPetInfo();
                             }
                         });
                     }
@@ -119,5 +124,14 @@ public class InfoFragment extends Fragment {
                     }
                 }
         );
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void setPetInfo(){
+        nameTV.setText(pet.getName());
+        ageTV.setText(pet.getAge() + "");
+        fioTV.setText(pet.getFio());
+        addressTV.setText(pet.getAddress());
+        telTV.setText(pet.getTel());
     }
 }

@@ -1,5 +1,7 @@
 package com.example.petreg;
 
+import android.content.res.Resources;
+
 import com.google.gson.Gson;
 
 import retrofit2.Retrofit;
@@ -12,7 +14,7 @@ public class ApiUtils {
     public static Retrofit getRetrofit(){
         if(retrofit == null){
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.0.104:8080/")
+                    .baseUrl("http://192.168.0.100:8080/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
