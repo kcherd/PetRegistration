@@ -1,5 +1,6 @@
 package com.example.petreg;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.nfc.FormatException;
 import android.nfc.NdefMessage;
@@ -20,7 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -48,12 +49,6 @@ public class RegisterFragment extends Fragment {
         return new RegisterFragment();
     }
 
-//    public interface RegisterEventListener {
-//        public void registerEvent(String id);
-//    }
-//
-//    RegisterEventListener eventListener;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,12 +69,6 @@ public class RegisterFragment extends Fragment {
             }
         });
 
-//        recordButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                eventListener.registerEvent(idTV.getText().toString());
-//            }
-//        });
         return v;
     }
 
@@ -137,25 +126,24 @@ public class RegisterFragment extends Fragment {
         Log.d(TAG, "object to write: " + pet.toString());
 
         ApiUtils.getApi().insertPet(gson.toJson(pet)).enqueue(
-                new Callback<JsonObject>() {
+                new Callback<JsonPrimitive>() {
                     //используем Handler, чтобы показывать ошибки в Main потоке, т.к. наши коллбеки возвращаются в рабочем потоке
                     Handler mainHandler = new Handler(getActivity().getMainLooper());
                     @Override
-                    public void onResponse(Call<JsonObject> call, final Response<JsonObject> response) {
+                    public void onResponse(Call<JsonPrimitive> call, final Response<JsonPrimitive> response) {
                         mainHandler.post(new Runnable() {
+                            @SuppressLint("SetTextI18n")
                             @Override
                             public void run() {
-                                JsonObject jsonAns = response.body();
-                                Log.d(TAG, "run: " + jsonAns);
-
-                                long idPet = gson.fromJson(jsonAns.getAsJsonObject(), Long.class);
-                                idET.setText((int) idPet);
+                                long idPet = response.body().getAsLong();
+                                Log.d(TAG, "response.body: " + idPet);
+                                idET.setText(Long.toString(idPet));
                             }
                         });
                     }
 
                     @Override
-                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                    public void onFailure(Call<JsonPrimitive> call, Throwable t) {
                         Log.d(TAG, "onFailure: " + t.getMessage());
                     }
                 }

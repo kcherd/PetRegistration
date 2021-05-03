@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -89,7 +88,7 @@ public class InfoFragment extends Fragment {
                 idTV.setText(message);
                 ndef.close();
 
-                getDataFromDB();
+                getDataFromDB(Long.parseLong(message));
             }
 
         } catch (IOException | FormatException e) {
@@ -98,8 +97,8 @@ public class InfoFragment extends Fragment {
         }
     }
 
-    public void getDataFromDB(){
-        ApiUtils.getApi().getPet(1).enqueue(
+    public void getDataFromDB(long id){
+        ApiUtils.getApi().getPet(id).enqueue(
                 new Callback<JsonObject>() {
                     //используем Handler, чтобы показывать ошибки в Main потоке, т.к. наши коллбеки возвращаются в рабочем потоке
                     Handler mainHandler = new Handler(getActivity().getMainLooper());
