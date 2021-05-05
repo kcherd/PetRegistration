@@ -17,11 +17,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,8 +40,12 @@ public class InfoFragment extends Fragment {
 
     private Listener listener;
     private Gson gson = new Gson();
-    private Pet pet;
+    private Pet pet = new Pet();
     public static final String TAG = InfoFragment.class.getSimpleName();
+
+    private RecyclerView recyclerView;
+    private VaccineAdapter adapter;
+    private ArrayList<Pet.Vaccination> vaccinations;
 
     public static InfoFragment newInstance(){
         return new InfoFragment();
@@ -55,7 +62,17 @@ public class InfoFragment extends Fragment {
         addressTV = v.findViewById(R.id.address_info_tv);
         telTV = v.findViewById(R.id.tel_info_tv);
 
+        //setInitialData();
+        recyclerView = (RecyclerView) v.findViewById(R.id.list);
+        //adapter = new VaccineAdapter(this.getContext(), vaccinations);
+        //recyclerView.setAdapter(adapter);
         return v;
+    }
+
+    private void setInitialData(){
+        vaccinations = new ArrayList<>();
+        vaccinations.add(new Pet.Vaccination("test1", "2021-01.01"));
+        vaccinations.add(new Pet.Vaccination("test2", "2021.02.03"));
     }
 
     @Override
@@ -110,7 +127,7 @@ public class InfoFragment extends Fragment {
                                 JsonObject jsonAns = response.body();
                                 Log.d(TAG, "run: " + jsonAns);
 
-                                pet = new Pet();
+                                //pet = new Pet();
                                 pet = gson.fromJson(jsonAns.getAsJsonObject(), Pet.class);
                                 setPetInfo();
                             }
@@ -128,9 +145,12 @@ public class InfoFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     public void setPetInfo(){
         nameTV.setText(pet.getName());
-        ageTV.setText(pet.getAge() + "");
+        ageTV.setText(pet.getBirth() + "");
         fioTV.setText(pet.getFio());
         addressTV.setText(pet.getAddress());
         telTV.setText(pet.getTel());
+
+        adapter = new VaccineAdapter(this.getContext(), pet.getVaccinations());
+        recyclerView.setAdapter(adapter);
     }
 }

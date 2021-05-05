@@ -118,7 +118,7 @@ public class RegisterFragment extends Fragment {
         //сделать проверку на пустые поля
         Pet pet = new Pet();
         pet.setName(nameET.getText().toString());
-        pet.setAge(Integer.parseInt(ageET.getText().toString()));
+        pet.setBirth(Integer.parseInt(ageET.getText().toString()));
         pet.setFio(fioET.getText().toString());
         pet.setAddress(addressET.getText().toString());
         pet.setTel(telET.getText().toString());

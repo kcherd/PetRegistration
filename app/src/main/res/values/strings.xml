@@ -19,4 +19,6 @@
     <string name="fio">ФИО</string>
     <string name="address">адрес</string>
     <string name="tel">телефон</string>
+    <string name="date">Дата</string>
+    <string name="vaccine">Прививки:</string>
 </resources>
