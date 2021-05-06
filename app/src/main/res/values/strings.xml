@@ -3,7 +3,7 @@
     <string name="register">Зарегистрировать</string>
     <string name="info">Информация</string>
     <string name="map">Карта</string>
-    <string name="id">идентификатор</string>
+    <string name="id">Идентификатор</string>
     <string name="name">Имя</string>
     <string name="Record">Записать</string>
     <string name="record_message">Приложите NFC метку к устройству</string>
@@ -17,8 +17,12 @@
     <string name="message_tap_tag">Приложите метку к телефону</string>
     <string name="age">Возраст</string>
     <string name="fio">ФИО</string>
-    <string name="address">адрес</string>
-    <string name="tel">телефон</string>
+    <string name="address">Адрес</string>
+    <string name="tel">Телефон</string>
     <string name="date">Дата</string>
     <string name="vaccine">Прививки:</string>
+    <string name="pet_info">Информация о животном</string>
+    <string name="birth">Год рождения</string>
+    <string name="reg_pet">Зарегистрировать животное</string>
+    <string name="title">Название</string>
 </resources>

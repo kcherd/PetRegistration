@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,50 +8,139 @@
     android:orientation="vertical">
 
     <TextView
-        android:text="register fragment"
+        android:id="@+id/textView8"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/reg_pet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/id"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/id_reg_et"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/name_reg_et"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/birth"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/age_reg_et"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fio"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/fio_reg_et"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/address"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/address_reg_et"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tel"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tel_reg_et"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="end"
+        app:constraint_referenced_ids="textView1, textView2, textView3, textView4, textView5, textView6" />
 
     <EditText
         android:id="@+id/id_reg_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/id" />
+        android:hint="@string/id"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/barrier1"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"/>
 
     <EditText
         android:id="@+id/name_reg_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/name"/>
+        android:hint="@string/name"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/barrier1"
+        app:layout_constraintTop_toBottomOf="@+id/id_reg_et" />
 
     <EditText
         android:id="@+id/age_reg_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/age"/>
+        android:hint="@string/birth"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/barrier1"
+        app:layout_constraintTop_toBottomOf="@+id/name_reg_et" />
 
     <EditText
         android:id="@+id/fio_reg_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/fio"/>
+        android:hint="@string/fio"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/barrier1"
+        app:layout_constraintTop_toBottomOf="@+id/age_reg_et" />
 
     <EditText
         android:id="@+id/address_reg_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/address"/>
+        android:hint="@string/address"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/barrier1"
+        app:layout_constraintTop_toBottomOf="@+id/fio_reg_et" />
 
     <EditText
         android:id="@+id/tel_reg_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/tel"/>
+        android:hint="@string/tel"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/barrier1"
+        app:layout_constraintTop_toBottomOf="@+id/address_reg_et" />
 
     <Button
         android:id="@+id/record_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Record"/>
+        android:text="@string/Record"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tel_reg_et" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

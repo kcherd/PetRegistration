@@ -24,7 +24,7 @@ import com.google.gson.JsonObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,17 +62,8 @@ public class InfoFragment extends Fragment {
         addressTV = v.findViewById(R.id.address_info_tv);
         telTV = v.findViewById(R.id.tel_info_tv);
 
-        //setInitialData();
         recyclerView = (RecyclerView) v.findViewById(R.id.list);
-        //adapter = new VaccineAdapter(this.getContext(), vaccinations);
-        //recyclerView.setAdapter(adapter);
         return v;
-    }
-
-    private void setInitialData(){
-        vaccinations = new ArrayList<>();
-        vaccinations.add(new Pet.Vaccination("test1", "2021-01.01"));
-        vaccinations.add(new Pet.Vaccination("test2", "2021.02.03"));
     }
 
     @Override
@@ -145,7 +136,8 @@ public class InfoFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     public void setPetInfo(){
         nameTV.setText(pet.getName());
-        ageTV.setText(pet.getBirth() + "");
+        int age = Calendar.getInstance().get(Calendar.YEAR) - pet.getBirth();
+        ageTV.setText(age + "");
         fioTV.setText(pet.getFio());
         addressTV.setText(pet.getAddress());
         telTV.setText(pet.getTel());
