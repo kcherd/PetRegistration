@@ -100,6 +100,7 @@ public class InfoFragment extends Fragment {
 
         } catch (IOException | FormatException e) {
             e.printStackTrace();
+            Toast.makeText(getActivity(), getString(R.string.err_read_tag),Toast.LENGTH_LONG).show();
         }
     }
 
@@ -116,7 +117,6 @@ public class InfoFragment extends Fragment {
                                 JsonObject jsonAns = response.body();
                                 Log.d(TAG, "run: " + jsonAns);
 
-                                //pet = new Pet();
                                 pet = gson.fromJson(jsonAns.getAsJsonObject(), Pet.class);
                                 setPetInfo();
                             }
@@ -126,6 +126,7 @@ public class InfoFragment extends Fragment {
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
                         Log.d(TAG, "onFailure: " + t.getMessage());
+                        Toast.makeText(getActivity(), getString(R.string.not_read_from_db), Toast.LENGTH_LONG).show();
                     }
                 }
         );

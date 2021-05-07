@@ -26,6 +26,7 @@ import com.google.gson.JsonPrimitive;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -119,38 +120,75 @@ public class RegisterFragment extends Fragment {
     }
 
     public void writeToDB(){
-        //сделать проверку на пустые поля
         Pet pet = new Pet();
-        pet.setName(nameET.getText().toString());
-        pet.setBirth(Integer.parseInt(ageET.getText().toString()));
-        pet.setFio(fioET.getText().toString());
-        pet.setAddress(addressET.getText().toString());
-        pet.setTel(telET.getText().toString());
+        boolean correctData = true;
+        StringBuilder errMessage = new StringBuilder();
+        if(!nameET.getText().toString().equals("")){
+            pet.setName(nameET.getText().toString());
+        } else{
+            correctData = false;
+            errMessage.append(getString(R.string.not_null_name));
+            errMessage.append("\n");
+        }
+        //год больше 0 и меньше или равен текущему году
+        if(!ageET.getText().toString().equals("") && Integer.parseInt(ageET.getText().toString()) > 0 && Integer.parseInt(ageET.getText().toString()) <= Calendar.getInstance().get(Calendar.YEAR)){
+            pet.setBirth(Integer.parseInt(ageET.getText().toString()));
+        } else{
+            correctData = false;
+            errMessage.append(getString(R.string.wrong_birth));
+            errMessage.append("\n");
+        }
+        if(!fioET.getText().toString().equals("")){
+            pet.setFio(fioET.getText().toString());
+        } else{
+            correctData = false;
+            errMessage.append(getString(R.string.not_null_fio));
+            errMessage.append("\n");
+        }
+        if(!addressET.getText().toString().equals("")){
+            pet.setAddress(addressET.getText().toString());
+        } else{
+            correctData = false;
+            errMessage.append(getString(R.string.not_null_address));
+            errMessage.append("\n");
+        }
+        if(!telET.getText().toString().equals("")){
+            pet.setTel(telET.getText().toString());
+        } else{
+            correctData = false;
+            errMessage.append(getString(R.string.not_null_tel));
+            errMessage.append("\n");
+        }
 
-        Log.d(TAG, "object to write: " + pet.toString());
+        if (!correctData){
+            Toast.makeText(getActivity(), errMessage.toString(),Toast.LENGTH_LONG).show();
+        } else {
+            Log.d(TAG, "object to write: " + pet.toString());
 
-        ApiUtils.getApi().insertPet(gson.toJson(pet)).enqueue(
-                new Callback<JsonPrimitive>() {
-                    //используем Handler, чтобы показывать ошибки в Main потоке, т.к. наши коллбеки возвращаются в рабочем потоке
-                    Handler mainHandler = new Handler(getActivity().getMainLooper());
-                    @Override
-                    public void onResponse(Call<JsonPrimitive> call, final Response<JsonPrimitive> response) {
-                        mainHandler.post(new Runnable() {
-                            @SuppressLint("SetTextI18n")
-                            @Override
-                            public void run() {
-                                long idPet = response.body().getAsLong();
-                                Log.d(TAG, "response.body: " + idPet);
-                                idTV.setText(Long.toString(idPet));
-                            }
-                        });
+            ApiUtils.getApi().insertPet(gson.toJson(pet)).enqueue(
+                    new Callback<JsonPrimitive>() {
+                        //используем Handler, чтобы показывать ошибки в Main потоке, т.к. наши коллбеки возвращаются в рабочем потоке
+                        Handler mainHandler = new Handler(getActivity().getMainLooper());
+                        @Override
+                        public void onResponse(Call<JsonPrimitive> call, final Response<JsonPrimitive> response) {
+                            mainHandler.post(new Runnable() {
+                                @SuppressLint("SetTextI18n")
+                                @Override
+                                public void run() {
+                                    long idPet = response.body().getAsLong();
+                                    Log.d(TAG, "response.body: " + idPet);
+                                    idTV.setText(Long.toString(idPet));
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onFailure(Call<JsonPrimitive> call, Throwable t) {
+                            Log.d(TAG, "onFailure: " + t.getMessage());
+                            Toast.makeText(getActivity(), getString(R.string.not_write_to_db) + t.getMessage(),Toast.LENGTH_LONG).show();
+                        }
                     }
-
-                    @Override
-                    public void onFailure(Call<JsonPrimitive> call, Throwable t) {
-                        Log.d(TAG, "onFailure: " + t.getMessage());
-                    }
-                }
-        );
+            );
+        }
     }
 }
