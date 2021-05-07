@@ -45,7 +45,6 @@ public class InfoFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private VaccineAdapter adapter;
-    private ArrayList<Pet.Vaccination> vaccinations;
 
     public static InfoFragment newInstance(){
         return new InfoFragment();
@@ -62,7 +61,7 @@ public class InfoFragment extends Fragment {
         addressTV = v.findViewById(R.id.address_info_tv);
         telTV = v.findViewById(R.id.tel_info_tv);
 
-        recyclerView = (RecyclerView) v.findViewById(R.id.list);
+        recyclerView = v.findViewById(R.id.list);
         return v;
     }
 
@@ -88,7 +87,7 @@ public class InfoFragment extends Fragment {
             ndef.connect();
             NdefMessage ndefMessage = ndef.getNdefMessage();
             if(ndefMessage == null){
-                Toast.makeText(getActivity(), "Записей на метке нет!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.no_record), Toast.LENGTH_LONG).show();
             }
             else {
                 String message = new String(ndefMessage.getRecords()[0].getPayload());
@@ -101,7 +100,6 @@ public class InfoFragment extends Fragment {
 
         } catch (IOException | FormatException e) {
             e.printStackTrace();
-
         }
     }
 

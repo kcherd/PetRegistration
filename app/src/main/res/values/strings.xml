@@ -5,16 +5,8 @@
     <string name="map">Карта</string>
     <string name="id">Идентификатор</string>
     <string name="name">Имя</string>
-    <string name="Record">Записать</string>
-    <string name="record_message">Приложите NFC метку к устройству</string>
-    <string name="cancel">Отмена</string>
-    <string name="message_write_error">Ошибка при записи тега</string>
     <string name="message_write_success">Тег успешно записан</string>
-    <string name="message_write_progress">Записываем тег</string>
     <string name="message_tag_detected">NFC метка обнаружена</string>
-    <string name="message_read_tag">Чтение метки</string>
-    <string name="message_write_tag">Запись на мекту</string>
-    <string name="message_tap_tag">Приложите метку к телефону</string>
     <string name="age">Возраст</string>
     <string name="fio">ФИО</string>
     <string name="address">Адрес</string>
@@ -25,4 +17,13 @@
     <string name="birth">Год рождения</string>
     <string name="reg_pet">Зарегистрировать животное</string>
     <string name="title">Название</string>
+    <string name="no_record">Записей на метке нет!</string>
+    <string name="repeat_write">Пожалуйста, попробуйте произвести записть еще раз</string>
+    <string name="record">Записать</string>
+    <string name="message_before_write">Введите данные в поля, нажмите кнопку \'Записать\', после появления поля идентификатора приложете телефон к NFC-метке для записи</string>
+    <string name="message_before_read">Приложите телефон к NFC-метке для чтения данных</string>
+    <string name="ok">Ок</string>
+    <string name="cancel">Отмена</string>
+    <string name="title_read_dialog">Чтение данных</string>
+    <string name="title_write_dialog">Запись сообщения</string>
 </resources>

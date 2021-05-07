@@ -21,6 +21,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:text="@string/id"
         android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/id_reg_et"
@@ -78,10 +79,11 @@
         app:barrierDirection="end"
         app:constraint_referenced_ids="textView1, textView2, textView3, textView4, textView5, textView6" />
 
-    <EditText
+    <TextView
         android:id="@+id/id_reg_et"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:hint="@string/id"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
@@ -137,7 +139,7 @@
         android:id="@+id/record_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Record"
+        android:text="@string/record"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,7 +35,8 @@ import retrofit2.Response;
 public class RegisterFragment extends Fragment {
 
     public static final String TAG = RegisterFragment.class.getSimpleName();
-    private EditText idET;
+    private TextView idTV;
+    private TextView labelId;
     private EditText nameET;
     private EditText ageET;
     private EditText fioET;
@@ -53,7 +55,8 @@ public class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.register_fragment, container, false);
-        idET = v.findViewById(R.id.id_reg_et);
+        idTV = v.findViewById(R.id.id_reg_et);
+        labelId = v.findViewById(R.id.textView1);
         nameET = v.findViewById(R.id.name_reg_et);
         ageET = v.findViewById(R.id.age_reg_et);
         fioET = v.findViewById(R.id.fio_reg_et);
@@ -65,6 +68,8 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: ");
+                idTV.setVisibility(View.VISIBLE);
+                labelId.setVisibility(View.VISIBLE);
                 writeToDB();
             }
         });
@@ -78,7 +83,6 @@ public class RegisterFragment extends Fragment {
         listener = (MainActivity)context;
         listener.onDialogDisplayed();
         ((MainActivity) context).setIsWrite(true);
-        //eventListener = (RegisterEventListener) context;
     }
 
     @Override
@@ -96,8 +100,8 @@ public class RegisterFragment extends Fragment {
             try {
                 ndef.connect();
                 NdefRecord mimeRecord;
-                if(idET.getText()!=null){
-                    String toRecordMess = idET.getText().toString();
+                if(idTV.getText()!=null){
+                    String toRecordMess = idTV.getText().toString();
                     mimeRecord = NdefRecord.createMime("text/plain", toRecordMess.getBytes(Charset.forName("US-ASCII")));
                 } else{
                     mimeRecord = NdefRecord.createMime("text/plain", message.getBytes(Charset.forName("US-ASCII")));
@@ -105,11 +109,11 @@ public class RegisterFragment extends Fragment {
                 ndef.writeNdefMessage(new NdefMessage(mimeRecord));
                 ndef.close();
                 //Write Successful
-                Toast.makeText(getActivity(), "Запись прошла успешно!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.message_write_success), Toast.LENGTH_LONG).show();
 
             } catch (IOException | FormatException e) {
                 e.printStackTrace();
-                Toast.makeText(getActivity(), "Пожалуйста, попробуйте произвести записть еще раз", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.repeat_write), Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -137,7 +141,7 @@ public class RegisterFragment extends Fragment {
                             public void run() {
                                 long idPet = response.body().getAsLong();
                                 Log.d(TAG, "response.body: " + idPet);
-                                idET.setText(Long.toString(idPet));
+                                idTV.setText(Long.toString(idPet));
                             }
                         });
                     }

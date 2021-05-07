@@ -29,10 +29,8 @@ public class StartFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, new RegisterFragment())
-                        .addToBackStack(null)
-                        .commit();
+                RegisterDialogFragment registerDialogFragment = new RegisterDialogFragment();
+                registerDialogFragment.show(fragmentManager, "RegisterDialog");
             }
         });
 
@@ -40,10 +38,8 @@ public class StartFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, new InfoFragment())
-                        .addToBackStack(null)
-                        .commit();
+                InfoDialogFragment infoDialogFragment = new InfoDialogFragment();
+                infoDialogFragment.show(fragmentManager, "InfoDialog");
             }
         });
 

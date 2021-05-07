@@ -1,6 +1,5 @@
 package com.example.petreg;
 
-import java.util.Date;
 import java.util.List;
 
 public class Pet {
