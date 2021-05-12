@@ -17,4 +17,8 @@ public interface PetAPI {
     @FormUrlEncoded
     @POST("pet")
     Call<JsonPrimitive> insertPet(@Field("pet") String pet);
+
+    @FormUrlEncoded
+    @POST("coordinates")
+    Call<JsonObject> setCoordinates(@Field("coordinates") String coordinates);
 }
