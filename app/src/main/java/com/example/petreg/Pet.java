@@ -10,6 +10,7 @@ public class Pet {
     private String address;
     private String tel;
     private List<Vaccination> vaccinations;
+    private String tokenFCM;
 
     public static class Vaccination{
         private String name;
@@ -117,5 +118,13 @@ public class Pet {
 
     public void setVaccinations(List<Vaccination> vaccinations) {
         this.vaccinations = vaccinations;
+    }
+
+    public String getTokenFCM() {
+        return tokenFCM;
+    }
+
+    public void setTokenFCM(String tokenFCM) {
+        this.tokenFCM = tokenFCM;
     }
 }

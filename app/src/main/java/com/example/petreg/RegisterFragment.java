@@ -163,6 +163,7 @@ public class RegisterFragment extends Fragment {
         if (!correctData){
             Toast.makeText(getActivity(), errMessage.toString(),Toast.LENGTH_LONG).show();
         } else {
+            pet.setTokenFCM(PetFirebaseMessagingService.token);
             Log.d(TAG, "object to write: " + pet.toString());
 
             ApiUtils.getApi().insertPet(gson.toJson(pet)).enqueue(

@@ -34,4 +34,6 @@
     <string name="not_write_to_db">Запись в базу не осуществлена: </string>
     <string name="not_read_from_db">Чтение из базы не удалось: </string>
     <string name="err_read_tag">Чтение метки не удалось</string>
+    <string name="fcm_message">Координаты вашего животного: </string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
 </resources>
